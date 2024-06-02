@@ -5,6 +5,7 @@ import Main from "../Layouts/Main";
 import Home from "../Pages/Home";
 import Login from "../components/Authentication/Login";
 import Register from "../components/Authentication/Register";
+import AllPackages from "../components/AllPackages/AllPackages";
 
   const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ import Register from "../components/Authentication/Register";
             element: <Home/>
         }
       ]
+    },
+    {
+        path: '/allPackage',
+        element: <AllPackages/>
     },
     {
         path: '/login',

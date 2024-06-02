@@ -34,13 +34,16 @@ const Nav = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li className="mr-4 font-semibold">
-        <NavLink to="/add">Add Book</NavLink>
+        <NavLink to="/community">Community</NavLink>
       </li>
       <li className="mr-4 font-semibold">
-        <NavLink to="/all">All Books</NavLink>
+        <NavLink to="/blogs">Blogs</NavLink>
       </li>
       <li className="mr-4 font-semibold">
-        <NavLink to="/borrowed">Borrowed Books</NavLink>
+        <NavLink to="/about">About Us</NavLink>
+      </li>
+      <li className="mr-4 font-semibold">
+        <NavLink to="/contact">Contact Us</NavLink>
       </li>
     </>
   );
@@ -119,28 +122,26 @@ const Nav = () => {
           {/* avatar */}
           {user ? (
             <>
-              {/* <div className="tooltip tooltip-left" data-tip={user.displayName}>
-              <div tabIndex={0} role="button" className="">  
-                  <div className="avatar">
-                      <div className="w-12 mt-3 rounded-full text-black">
-                      <img src={user.photoURL} referrerPolicy='no-referrer'/>
-                      </div>
-                  </div>
-                  </div>
-              </div> */}
 
               <div className="dropdown dropdown-end avatar z-10">
                 <div
                   tabIndex={0}
                   role="button"
-                  className="w-12 mt-3 rounded-full text-black"
+                  className="w-12  rounded-full text-black"
                 >
                   <img src={user.photoURL} referrerPolicy="no-referrer" />
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-black"
+                  className="dropdown-content z-[1] menu  shadow bg-base-100 rounded-box w-56  backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100"
                 >
+
+                  <li className=" ml-4 my-2">
+                    {user?.displayName}
+                  </li>
+                  <li className="ml-4 my-2">
+                  {user?.email}
+                  </li>
                   <li>
                     <a> Dashboard</a>
                   </li>
