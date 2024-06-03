@@ -129,7 +129,7 @@ const Nav = () => {
                   role="button"
                   className="w-12  rounded-full text-black"
                 >
-                  <img src={user.photoURL} referrerPolicy="no-referrer" />
+                  <img src={user.photoURL} referrerPolicy="no-referrer"/>
                 </div>
                 <ul
                   tabIndex={0}
@@ -143,7 +143,7 @@ const Nav = () => {
                   {user?.email}
                   </li>
                   <li>
-                    <a> Dashboard</a>
+                    <Link to="/dashboard"> Dashboard</Link>
                   </li>
                   <li>
                     <a> Offer Announcements </a>

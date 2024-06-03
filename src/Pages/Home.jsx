@@ -1,5 +1,6 @@
 import Banner from "../components/Banner/Banner";
 import TourAndTravelGuide from "../components/HomeComponents/TourAndTravelGuide";
+import TourType from "../components/TourTypeSection/TourType";
 
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
         <div>
             <Banner/>
             <TourAndTravelGuide/>
+            <TourType/>
         </div>
     );
 };

@@ -2,6 +2,7 @@ import { FaRegHeart } from "react-icons/fa";
 import usePackage from "../../Hooks/usePackage";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Nav from "../Nav/Nav";
+import { Link } from "react-router-dom";
 
 
 const AllPackages = () => {
@@ -29,9 +30,9 @@ const AllPackages = () => {
                         <div className="flex items-center">
                             <p className="text-lg font-semibold text-black cursor-auto my-3">${item.price}</p>
                             
-                            <div className="ml-auto">
+                            <Link to={`/details/${item._id}`} className="ml-auto">
                             <button className="btn btn-outline btn-sm"> View Package</button>
-                            </div>
+                            </Link>
                         </div>
                         
                     </div>
@@ -42,7 +43,7 @@ const AllPackages = () => {
             </div>
              
         </div>
-        
+
         </>
     );
 };
