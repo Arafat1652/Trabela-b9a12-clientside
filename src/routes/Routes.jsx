@@ -10,6 +10,10 @@ import PackageDetails from "../components/PackageDetailsPage/PackageDetails";
 import TourItem from "../components/TourTypeSection/TourItem";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import Profile from "../Pages/Dashboard/Common/Profile";
+import DetailsStory from "../components/AllStory/DetailsStory";
+
+
 
   const router = createBrowserRouter([
     {
@@ -31,6 +35,7 @@ import DashboardLayout from "../Layouts/DashboardLayout";
         element: <Register/>
     },
     {
+      //package details
       path: '/details/:id',
       element: <PackageDetails/>,
       loader: ({params})=>fetch(`${import.meta.env.VITE_API_URL}/packages/${params.id}`)
@@ -45,12 +50,19 @@ import DashboardLayout from "../Layouts/DashboardLayout";
      loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/types/${params.tour_type}`)
     },
     {
+      //story details page
+      path: '/storyDetails/:id',
+      element:<DetailsStory/>,
+      loader: ({params})=>fetch(`${import.meta.env.VITE_API_URL}/storys/${params.id}`)
+    },
+    
+    {
       path: '/dashboard',
       element:<PrivateRoute><DashboardLayout/></PrivateRoute>,
       children:[
         {
           index: true,
-          // element: <PrivateRoute><Statistics/></PrivateRoute>,
+          element: <Profile/>,
         },
        
       ]

@@ -77,12 +77,12 @@ const Sidebar = () => {
             {/*  Menu Items */}
             <nav>
               {/* my profile common*/}
-              <MenuItem label='My Profile' address='/dashboard/profile' icon={CgProfile}/>
+              <MenuItem label='My Profile' address='/dashboard' icon={CgProfile}/>
 
               {/* Add Room */}
-              {/* <TouristMenu/> */}
+              <TouristMenu/>
                 {/* <GuideMenu/> */}
-                <AdminMenu/>
+                {/* <AdminMenu/> */}
               {/* My Listing */}
 
             </nav>
