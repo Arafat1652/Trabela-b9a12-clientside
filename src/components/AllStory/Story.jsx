@@ -59,7 +59,7 @@ const Story = () => {
         </div>
       </section>
       <div className="m-auto text-center">
-        <Link to="/allPackage" className="btn btn-outline">
+        <Link to="/allStory" className="btn btn-outline">
           All Packages
         </Link>
       </div>

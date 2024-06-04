@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Profile from "../Pages/Dashboard/Common/Profile";
 import DetailsStory from "../components/AllStory/DetailsStory";
+import AllTouristStory from "../components/AllStory/AllTouristStory";
 
 
 
@@ -54,6 +55,10 @@ import DetailsStory from "../components/AllStory/DetailsStory";
       path: '/storyDetails/:id',
       element:<DetailsStory/>,
       loader: ({params})=>fetch(`${import.meta.env.VITE_API_URL}/storys/${params.id}`)
+    },
+    {
+      path: '/allStory',
+      element: <AllTouristStory/>
     },
     
     {
