@@ -1,30 +1,53 @@
 import { useState } from "react";
-import { useLoaderData, } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Nav from "../Nav/Nav";
 import useAuth from "../../Hooks/useAuth";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useTourGuide from "../../Hooks/useTourGuide";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const PackageDetails = () => {
   const loadedPackages = useLoaderData();
-  const {user} = useAuth()
+  const { user } = useAuth();
+  const [guides, isPending] = useTourGuide()
   const [startDate, setStartDate] = useState(new Date());
-  console.log(loadedPackages);
-  const {
-    tour_type,
-    trip_title,
-    price,
-    image_1,
-    image_2,
-    image_3,
-    image_4,
-    image_5,
-    about_tour,
-    tour_plan,
-    package_name,
-  } = loadedPackages;
+  // console.log(loadedPackages);
 
-  console.log(startDate);
+  const {_id ,tour_type ,trip_title ,price ,image_1 ,image_2 ,image_3 ,image_4 ,image_5 ,about_tour ,tour_plan ,package_name} = loadedPackages;
+
+  // console.log(startDate);
+
+  const handleBooking =e=>{
+    e.preventDefault()
+    const form = e.target
+    const packageId = _id
+    const tourist_email = user?.email
+    const tourist_name = user?.displayName
+    const tourist_photo = user?.photoURL
+    const price = loadedPackages.price
+    const tourDate = startDate
+    const guide_name = form.guide_name.value
+    const package_name = loadedPackages.package_name
+    const status = "In Review"
+    
+    const bookingInfo =  {packageId, tourist_email, tourist_name, tourist_photo, price, tourDate, guide_name, package_name, status}
+        //  console.table(bookingInfo);
+        axios.post(`${import.meta.env.VITE_API_URL}/bookings`, bookingInfo)
+        .then(res=>{
+          if(res.data.insertedId){
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${user?.displayName} you booked this tour succefully`,
+              showConfirmButton: false,
+              timer: 1500
+            });
+            form.reset()
+          }
+        })
+  }
 
   return (
     <>
@@ -102,100 +125,103 @@ const PackageDetails = () => {
         <h3 className="">tour title:{trip_title}</h3>
         <h3 className="">price:$ {price}</h3>
 
-        <div className=" grid grid-cols-1 md:grid-cols-3 h-fit w-4/5 md:w-[90%] lg:w-4/5 rounded shadow overflow-hidden text-white">
-          {/* form / left div  */}
-          <div className="p-2 md:p-4 h-full bg-gray-800 col-span-2">
-            <form>
-              {/* form top part containing mail icon and heading  */}
-              <div className="flex flex-col md:flex-row justify-around items-start md:items-center pt-8 p-4">
-                {/* heading  */}
-                <h2 className="text-2xl md:text-3xl font-semibold">Book Now</h2>
-              </div>
-
-              {/* bottom form with input fields  */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-6 px-4 md:py-12 md:px-8 text-sm">
-                {/* name input  */}
-                <div className="flex flex-col gap-1">
-                  <label className="font-semibold">
-                    Name <span className="text-red-500">&#42;</span>
-                  </label>
-                  <input
-                    className="border-[1px] border-white bg-gray-800 p-2 rounded-md"
-                    placeholder="Enter Your Name"
-                   defaultValue={user?.displayName}
-                   readOnly
-                    name="name"
-                    type="text"
-                  />
-                </div>
-
-                {/* email input  */}
-                <div className="flex flex-col gap-1">
-                  <label className="font-semibold">
-                    Email <span className="text-red-500">&#42;</span>
-                  </label>
-                  <input
-                    className="border-[1px] border-white bg-gray-800 p-2 rounded-md"
-                    placeholder="Enter Your Email"
-                    defaultValue={user?.email}
-                    readOnly
-                    name="email"
-                    type="email"
-                  />
-                </div>
-
-                {/* phone number input  */}
-                <div className="flex flex-col gap-1">
-                  <label className="font-semibold">
-                    Image URL <span className="text-red-500">&#42;</span>
-                  </label>
-                  <input
-                    className="border-[1px] border-white bg-gray-800 p-2 rounded-md"
-                    placeholder="Enter Your image url"
-                    defaultValue={user?.photoURL}
-                    readOnly
-                    name="image"
-                    type="tel"
-                  />
-                </div>
-
-                {/* subject input  */}
-                <div className="flex flex-col gap-1">
-                  <label className="font-semibold">
-                    Price <span className="text-red-500">&#42;</span>
-                  </label>
-                  <input
-                    className="border-[1px] border-white bg-gray-800 p-2 rounded-md"
-                    placeholder="Price"
-                    required
-                    defaultValue={price}
-                    readOnly
-                    type="text"
-                  />
-                </div>
-
-                {/* message input  */}
-                             <div className="flex flex-col gap-2 ">
-                                <label className="">
-                                  Return Date
-                                </label>
-
-                                {/* Date Picker Input Field */}
-                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} 
-                                className="border p-2 rounded-md text-black"
-                                />
-                              </div>
-                {/*for tour guide dropDown */}
-                
-              </div>
-                {/* book submit button */}
-              <input
-                  type="submit"
-                  value="Book"
-                  className="btn btn-block text-xl border-none"
+        {/* form */}
+        <div className="my-24">
+          <form onSubmit={handleBooking}>
+            <h2 className=" text-3xl text-center mt-1 font-semibold">
+              Book Your Tour
+            </h2>
+            {/* first row */}
+            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+              {/* tourist name */}
+              <div className="w-full  mb-4 mt-6">
+                <label className="mb-2 ">Tourist Name</label>
+                <input
+                  type="text"
+                  className="mt-2 p-4 w-full border-2 rounded-lg "
+                  defaultValue={user?.displayName}
+                  readOnly
                 />
-            </form>
-          </div>
+              </div>
+              {/* tourist email*/}
+              <div className="w-full mb-4 lg:mt-6">
+                <label className=" ">Tourist Email</label>
+                <input
+                  type="text"
+                  className="mt-2 p-4 w-full border-2 rounded-lg "
+                  defaultValue={user?.email}
+                 readOnly
+                />
+              </div>
+            </div>
+            {/* second row */}
+            {/* tourist photo */}
+            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+              <div className="w-full mb-4 lg:mt-6">
+                <label className=" ">Tourist PhotoURL</label>
+                <input
+                  type="text"
+                  className="mt-2 p-4 w-full border-2 rounded-lg "
+                  defaultValue={user?.photoURL}
+                  readOnly
+                />
+              </div>
+              {/* price */}
+              <div className="w-full  mb-4 mt-6">
+                <label className="mb-2 ">Price</label>
+                <input
+                  type="number"
+                  className="mt-2 p-4 w-full border-2 rounded-lg "
+                  defaultValue={price}
+                  readOnly
+                />
+              </div>
+            </div>
+            {/* third row */}
+            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+              {/*guide Name */}
+              <div className="form-control w-full ml-4 ">
+              <label className="label">
+                <span className="label-text">Guides</span>
+              </label>
+              <div className="input-group">
+                <select
+                required
+                  name="guide_name"
+                  className="select select-bordered w-full"
+                >
+                  
+                  {guides.map((item) => (
+                  <option value={item.name} key={item.id}>
+                    {item.name}
+                  </option>
+                  
+                ))}
+                </select>
+              </div>
+              </div>
+             {/* tour place name*/}
+             <div className="w-full mt-6">
+              
+              <label className="mr-2">Tour Date</label>
+
+              {/* Date Picker Input Field */}
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                className="select select-bordered w-full p-2 rounded-md text-black"
+              />
+
+              </div>
+            </div>
+            {/* fourth row */}
+      
+            <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
+              <button type="submit" className="w-full p-4">
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>
@@ -203,3 +229,42 @@ const PackageDetails = () => {
 };
 
 export default PackageDetails;
+
+
+{/* <div className="form-control w-1/2 ml-4 ">
+<label className="label">
+  <span className="label-text">Category</span>
+</label>
+<div className="input-group">
+  <select
+    name="category"
+    className="select select-bordered w-full"
+  >
+    
+    <option>Novel</option>
+    <option>Thriller</option>
+    <option>History</option>
+    <option>Drama</option>
+    <option>Sci-Fi</option>
+  </select>
+</div>
+</div>
+
+const category = form.category.value;
+
+<div className="w-full  mb-4 mt-6 ">
+              <label htmlFor="category" className="block text-gray-600">
+                Category
+              </label>
+              <select
+                required
+                className="w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md"
+                name="guideName"
+              >
+                {guides.map((item) => (
+                  <option value={item.name} key={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div> */}

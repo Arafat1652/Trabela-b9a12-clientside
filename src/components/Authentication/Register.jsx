@@ -10,6 +10,9 @@ import toast from 'react-hot-toast';
 import { Helmet } from "react-helmet-async";
 import Nav from "../Nav/Nav";
 import useAuth from "../../Hooks/useAuth";
+import axios from "axios";
+import SocialLogin from "./SocialLogin";
+
 
 
 
@@ -21,7 +24,7 @@ const Register = () => {
     const [successReg, setSuccessReg] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     
-    const { register,handleSubmit,formState: { errors },} = useForm()
+    const { register,handleSubmit,formState: { errors },reset} = useForm()
       const onSubmit = (data) => {
         const {email, password,image, fullName} = data
 
@@ -40,21 +43,53 @@ const Register = () => {
             return toast.error('password must have at least one uppercase and one lower case character')
            
         }
+
+        createUser(data.email, data.password).then((result) => {
+
+            updateUserProfile(fullName, image)
+              .then(() => {
+                // create user entry in the database
+                const userInfo = {
+                  name: fullName,
+                  email: data.email,
+                  photo: data.image,
+                    role: 'user',
+                    status: 'In Review'
+                };
+                axios.post(`${import.meta.env.VITE_API_URL}/user`, userInfo)
+                .then((res) => {
+                  if (res.data.insertedId) {
+                    console.log("user added succefully");
+                    reset();
+                    toast.success("Registration is Succefull")
+                    navigate("/");
+                  }
+                });
+              })
+              .catch(error=> {
+                toast.error(error.message)
+              })
+          })
+          .catch(error=> {
+            toast.error(error.code)
+          })
       
 
-        createUser(email, password)
-        .then(()=>{
+        // createUser(email, password)
+        // .then(()=>{
            
-            toast.success('Your Registration Succesfull')
-            updateUserProfile(fullName, image)
-            .then(()=>{
-                navigate('/')
-            })
-        })
-        .catch(error=>{
-            console.error(error)
-            toast.error(error.code)
-        })
+        //     toast.success('Your Registration Succesfull')
+        //     updateUserProfile(fullName, image)
+        //     .then(()=>{
+        //         navigate('/')
+        //     })
+        // })
+        // .catch(error=>{
+        //     console.error(error)
+        //     toast.error(error.code)
+        // })
+
+
       } 
 
     return (
@@ -93,6 +128,8 @@ const Register = () => {
 
         <p className="text-green-500">{successReg}</p>
         <p className="text-red-400">{regError}</p>
+        {/* google Login */}
+        <SocialLogin/>
 
         <p className="text-sm text-center sm:px-6 text-gray-400">Already have an account?
             <NavLink to='/login' rel="noopener noreferrer" href="#" className="underline text-primary"> Login</NavLink>

@@ -52,24 +52,25 @@ const AuthProvider = ({children}) => {
     }
 
     // save a user in mongodb
-    const saveUser = async user =>{
-        const currentUser = {
-          email: user?.email,
-          role: 'user',
-          status: 'In Review'
-        }
-        const {data}= await axios.put(`${import.meta.env.VITE_API_URL}/user`, currentUser)
-        return data
-      }
+    // const saveUser = async user =>{
+    //     const currentUser = {
+    //       email: user?.email,
+    //       name: user?.displayName,
+    //       role: 'user',
+    //       status: 'In Review'
+    //     }
+    //     const {data}= await axios.post(`${import.meta.env.VITE_API_URL}/user`, currentUser)
+    //     return data
+    //   }
     
     // observe auth state change
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth,currentUser=>{
             setUser(currentUser)
             console.log('onchanged auth provider in side use effect',currentUser)
-            if (currentUser) {
-                saveUser(currentUser)
-              }
+            // if (currentUser) {
+            //     saveUser(currentUser)
+            //   }
             setLoading(false)
         });
         return ()=>{

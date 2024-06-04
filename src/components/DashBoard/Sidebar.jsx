@@ -14,10 +14,13 @@ import GuideMenu from './Menu/GuideMenu'
 import TouristMenu from './Menu/TouristMenu'
 import { CgProfile } from 'react-icons/cg'
 import AdminMenu from './Menu/AdminMenu'
+import useRole from '../../Hooks/useRole'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
   const [isActive, setActive] = useState(false)
+  const [role, isLoading] = useRole()
+
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -80,9 +83,10 @@ const Sidebar = () => {
               <MenuItem label='My Profile' address='/dashboard' icon={CgProfile}/>
 
               {/* Add Room */}
-              <TouristMenu/>
-                {/* <GuideMenu/> */}
-                {/* <AdminMenu/> */}
+              {role=== 'user' && <TouristMenu/>}
+              {role=== 'guide' && <GuideMenu/>}
+              {role=== 'admin' && <AdminMenu/>}  
+
               {/* My Listing */}
 
             </nav>

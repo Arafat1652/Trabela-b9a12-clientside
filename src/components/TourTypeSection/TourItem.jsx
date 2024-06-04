@@ -4,7 +4,7 @@ import { Link, useLoaderData } from "react-router-dom";
 
 const TourItem = () => {
     const tourType = useLoaderData() 
-    console.log('tour type nana',tourType);
+    // console.log('tour type nana',tourType);
     
     return (
         <div className="grid max-w-7xl my-24 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">

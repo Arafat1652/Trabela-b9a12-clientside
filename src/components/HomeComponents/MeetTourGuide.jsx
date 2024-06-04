@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useTourGuide from "../../Hooks/useTourGuide";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
@@ -31,8 +32,10 @@ const MeetTourGuide = () => {
                   <th>
                    SL
                   </th>
+                  <th>Image</th>
                   <th>Name</th>
-                  <th></th>
+                  <th>Email</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,26 +50,22 @@ const MeetTourGuide = () => {
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12">
                             <img
-                              src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
+                              src={item.photo}
                               alt="Avatar Tailwind CSS Component"
                             />
                           </div>
                         </div>
-                        <div>
-                          <div className="font-bold">{item.email}</div>
-                        </div>
                       </div>
                     </td>
-
+                    <th>{item.name}</th>
+                    <th>{item.email}</th>
                     <th>
-                      <button className="btn btn-ghost btn-xs">Details</button>
+                      <Link to={`/guideDetails/${item._id}`} className="btn btn-sm btn-primary">Details</Link>
                     </th>
                   </tr>)
                }
 
-
               </tbody>
-    
             </table>
           </div>
         </div>

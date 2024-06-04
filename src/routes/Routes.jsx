@@ -13,6 +13,8 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Profile from "../Pages/Dashboard/Common/Profile";
 import DetailsStory from "../components/AllStory/DetailsStory";
 import AllTouristStory from "../components/AllStory/AllTouristStory";
+import GuideDetails from "../components/HomeComponents/GuideDetails/GuideDetails";
+import MyBookings from "../Pages/Dashboard/Tourist/MyBookings";
 
 
 
@@ -51,6 +53,12 @@ import AllTouristStory from "../components/AllStory/AllTouristStory";
      loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/types/${params.tour_type}`)
     },
     {
+      // Tour guide details page from meet our tour tab
+      path: '/guideDetails/:id',
+      element:<GuideDetails/>,
+     loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/guides/${params.id}`)
+    },
+    {
       //story details page
       path: '/storyDetails/:id',
       element:<DetailsStory/>,
@@ -69,6 +77,10 @@ import AllTouristStory from "../components/AllStory/AllTouristStory";
           index: true,
           element: <Profile/>,
         },
+        {
+          path:'my-bookings',
+          element: <MyBookings/>
+         },
        
       ]
     }

@@ -1,8 +1,17 @@
 import useAuth from "../../../Hooks/useAuth";
+import useRole from "../../../Hooks/useRole";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+import AddinfoForm from "../Guides/AddinfoForm";
 import AddStory from "../Tourist/AddStory";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user , loading} = useAuth();
+  const [role,isLoading ] = useRole()
+
+
+  if(loading || isLoading){
+    return <LoadingSpinner/>
+   }
 
   return (
     <div>
@@ -30,13 +39,17 @@ const Profile = () => {
               <a className="text-gray-400 mt-2 hover:text-blue-500">
                 {user?.email}
               </a>
+              <p className=" mt-2 hover:text-blue-500">
+               {role}
+              </p>
             </div>
             <hr className="mt-6" />
           </div>
          
         </div>
       </div>
-        <AddStory/>
+       {role === 'user' && <AddStory/>} 
+       {role === 'guide' && <AddinfoForm/>} 
     </div>
   );
 };
