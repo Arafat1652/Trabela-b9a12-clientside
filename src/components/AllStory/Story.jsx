@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import useStory from "../../Hooks/useStory";
-import { FaEye } from "react-icons/fa6";
+import { FaComment, FaEye } from "react-icons/fa6";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const Story = () => {
@@ -21,7 +21,7 @@ const Story = () => {
           </div>
           <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
             {
-                storys.map(item=><Link key={item._id} to={`/storyDetails/${item._id}`} className="flex flex-col bg-gray-200">
+                storys.slice(0,4).map(item=><Link key={item._id} to={`/storyDetails/${item._id}`} className="flex flex-col bg-gray-200">
                 <a
                   rel="noopener noreferrer"
                   aria-label="Te nulla oportere reprimique his dolorum"
@@ -49,7 +49,7 @@ const Story = () => {
                     {item.title}
                   </h3>
                   <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs text-gray-400">
-                    <span>{item.date}</span>
+                    <span className="flex gap-1 items-center justify-center"><FaComment/>{item.comment}</span>
                     <span className="flex gap-1 items-center justify-center"><FaEye/> {item.view}</span>
                   </div>
                 </div>

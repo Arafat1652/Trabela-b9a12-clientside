@@ -3,7 +3,7 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const MeetTourGuide = () => {
   const [guides, isPending] = useTourGuide();
-  console.log("tour guide", guides);
+  // console.log("tour guide", guides);
 
 
   if(isPending){

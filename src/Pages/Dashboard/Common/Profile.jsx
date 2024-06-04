@@ -1,11 +1,9 @@
 import useAuth from "../../../Hooks/useAuth";
+import AddStory from "../Tourist/AddStory";
 
 const Profile = () => {
   const { user } = useAuth();
 
-    const handleStorySubmit=(e)=>{
-        e.preventDefault()
-    }
   return (
     <div>
       <div className="mt-24 flex flex-wrap items-center  justify-center  ">
@@ -38,126 +36,10 @@ const Profile = () => {
          
         </div>
       </div>
-       {/* story form */}
-       <div className="my-24">
-            <form onSubmit={handleStorySubmit}>
-              <h2 className=" text-3xl text-center mt-1 font-semibold">
-                Upload Your Story
-              </h2>
-              {/* first row */}
-              <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                {/* image */}
-                <div className="w-full  mb-4 mt-6">
-                  <label  className="mb-2 ">
-                    Image URL
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-2 p-4 w-full border-2 rounded-lg "
-                    placeholder="image"
-                    name="image"
-                  />
-                </div>
-                 {/* tour place name*/}
-                <div className="w-full mb-4 lg:mt-6">
-                  <label className=" ">
-                    Tour Place Name
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-2 p-4 w-full border-2 rounded-lg "
-                    placeholder="Place Name"
-                    name="place"
-                  />
-                </div>
-              </div>
-                {/* second row */}
-              <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-              <div className="w-full mb-4 lg:mt-6">
-                  <label className=" ">
-                    Tour Title
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-2 p-4 w-full border-2 rounded-lg "
-                    placeholder="Tour Title"
-                    name="title"
-                  />
-                </div>
-                {/* date */}
-                <div className="w-full lg:mt-6">
-                  <h3 className="mb-2">Tour Date</h3>
-                  <input
-                    type="date"
-                    className="text-grey p-4 w-full border-2 rounded-lg "
-                  />
-                </div>
-              </div>
-                {/* third row */}
-                <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                {/* image */}
-                <div className="w-full  mb-4 mt-6">
-                  <label  className="mb-2 ">
-                    Image URL
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-2 p-4 w-full border-2 rounded-lg "
-                    placeholder="image"
-                    name="image"
-                  />
-                </div>
-                 {/* tour place name*/}
-                <div className="w-full mb-4 lg:mt-6">
-                  <label className=" ">
-                    Tour Place Name
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-2 p-4 w-full border-2 rounded-lg "
-                    placeholder="Place Name"
-                    name="place"
-                  />
-                </div>
-              </div>
-              {/* fourth row */}
-              <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                {/* image */}
-                <div className="w-full  mb-4 mt-6">
-                  <label  className="mb-2 ">
-                    Image URL
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-2 p-4 w-full border-2 rounded-lg "
-                    placeholder="image"
-                    name="image"
-                  />
-                </div>
-                 {/* tour place name*/}
-                <div className="w-full mb-4 lg:mt-6">
-                  <label className=" ">
-                    Tour Place Name
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-2 p-4 w-full border-2 rounded-lg "
-                    placeholder="Place Name"
-                    name="place"
-                  />
-                </div>
-              </div>
-
-
-              <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
-                <button type="submit" className="w-full p-4">
-                  Submit
-                </button>
-              </div>
-            </form>
-          </div>
+        <AddStory/>
     </div>
   );
 };
 
 export default Profile;
+
