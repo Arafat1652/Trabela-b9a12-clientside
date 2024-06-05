@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 const MyWishlist = () => {
@@ -13,6 +14,18 @@ const MyWishlist = () => {
             return res.data
         }
     })
+
+    const handleDelete=(_id)=>{
+        // console.log(_id);
+        axios.delete(`${import.meta.env.VITE_API_URL}/wishList/${_id}`)
+        .then(res=>{
+            if(res.data.deletedCount>0){
+            refetch()
+              toast.success(`${user?.displayName}! package is remove form your wishlist`)
+            }
+          })
+         
+    }
 
     // console.log('wish datas',wishData);
 
@@ -51,7 +64,7 @@ const MyWishlist = () => {
                   <td>{item.package_name}</td>
                   <td>{item.price}</td>
                   <td>
-                  <button className="btn btn-primary btn-xs mb-2">Delete</button>
+                  <button onClick={()=>handleDelete(item._id)} className="btn btn-primary btn-xs mb-2">Delete</button>
                    <Link to={`/details/${item.wishId}`} className="btn btn-secondary btn-xs ml-2">View Details</Link>
                       
                   </td>
