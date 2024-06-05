@@ -2,12 +2,42 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { FaRegHeart } from "react-icons/fa";
 import usePackage from "../../Hooks/usePackage";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const OurPackage = () => {
   const [packages, isPending] = usePackage();
+  const {user} = useAuth()
 
   if (isPending) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner />
+  }
+
+  const handleWishlist=(info)=>{
+   const  { _id, package_name, image, price} = info
+
+   const wishData = {
+    wishId: _id,
+    email: user?.email,
+    package_name,
+    image,
+    price,
+   }
+    // console.table(wishData)
+
+    axios.post(`${import.meta.env.VITE_API_URL}/wishLists`, wishData)
+        .then(res=>{
+          if(res.data.insertedId){
+            toast.success(`${user?.displayName}! this package add to your Wishlist`)
+          }
+        })
+        .catch(error=>{
+          toast.success("thie package already in your wishList")
+        })
+
+
   }
 
   return (
@@ -23,9 +53,9 @@ const OurPackage = () => {
               alt="Product"
               className=" h-80 w-72 object-cover rounded-t-xl"
             />
-            <div className="absolute top-0 right-0 text-black rounded-full bg-white p-2 m-2  text-xl font-medium">
+            <button onClick={()=> handleWishlist(item)} className="absolute top-0 right-0 text-black rounded-full bg-white p-2 m-2  text-xl font-medium">
               <FaRegHeart className="hover:fill-red-400" />
-            </div>
+            </button>
 
             <div className="px-4 py-3 w-72">
               <span className="text-gray-400 mr-3 uppercase text-xs">
