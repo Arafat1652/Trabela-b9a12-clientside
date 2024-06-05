@@ -54,7 +54,7 @@ const Register = () => {
                   email: data.email,
                   photo: data.image,
                     role: 'user',
-                    status: 'In Review'
+                    status: 'Verified'
                 };
                 axios.post(`${import.meta.env.VITE_API_URL}/user`, userInfo)
                 .then((res) => {

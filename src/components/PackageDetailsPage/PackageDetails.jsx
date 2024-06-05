@@ -193,7 +193,7 @@ const PackageDetails = () => {
                 >
                   
                   {guides.map((item) => (
-                  <option value={item.name} key={item.id}>
+                  <option value={item.name} key={item._id}>
                     {item.name}
                   </option>
                   

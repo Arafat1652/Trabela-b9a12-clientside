@@ -1,6 +1,7 @@
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 
 const MyAssignedTours = () => {
@@ -18,6 +19,32 @@ const MyAssignedTours = () => {
         },
       });
     //   console.log('assigned',assigned);
+
+
+    const handleAccept=(_id)=>{
+      // console.log("accept",_id);
+      // ({status: 'Accepted'})
+
+      axios.patch(`${import.meta.env.VITE_API_URL}/tourAccepted/${_id}`, {status: 'Accepted'})
+      .then(res=>{
+        if(res.data.modifiedCount > 0){
+          toast.success('accepted this tour')
+          refetch()
+        }
+      })
+      
+    }
+
+
+    const handleReject=(_id)=>{
+      axios.patch(`${import.meta.env.VITE_API_URL}/tourAccepted/${_id}`, {status: 'Rejected'})
+      .then(res=>{
+        if(res.data.modifiedCount > 0){
+          toast.success('reject this tour')
+          refetch()
+        }
+      })
+    }
 
     return (
         <div>
@@ -60,8 +87,8 @@ const MyAssignedTours = () => {
                   <td>{item.price}</td>
                   <td>{item.status}</td>
                   <td>
-                  <button className="btn btn-primary btn-xs mb-2">Accept</button>
-                   <button className="btn btn-secondary btn-xs ml-2">Reject</button>
+                  <button onClick={()=>handleAccept(item._id)} className="btn btn-primary btn-xs mb-2">Accept</button>
+                   <button onClick={()=>handleReject(item._id)} className="btn btn-secondary btn-xs ml-2">Reject</button>
                       
                   </td>
                 </tr>

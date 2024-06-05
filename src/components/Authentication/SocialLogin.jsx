@@ -17,7 +17,7 @@ const SocialLogin = () => {
                 name: result.user?.displayName,
                 photo: result.user?.photoURL,
                 role: 'user',
-                status: 'In Review'
+                status: 'Verified'
             }
             axios.post(`${import.meta.env.VITE_API_URL}/user`, userInfo)
             .then(res=>{
