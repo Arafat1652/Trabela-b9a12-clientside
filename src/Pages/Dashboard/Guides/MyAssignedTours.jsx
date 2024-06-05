@@ -39,6 +39,7 @@ const MyAssignedTours = () => {
     const handleReject=(_id)=>{
       axios.patch(`${import.meta.env.VITE_API_URL}/tourAccepted/${_id}`, {status: 'Rejected'})
       .then(res=>{
+        console.log(res.data);
         if(res.data.modifiedCount > 0){
           toast.success('reject this tour')
           refetch()
@@ -89,6 +90,14 @@ const MyAssignedTours = () => {
                   <td>
                   <button onClick={()=>handleAccept(item._id)} className="btn btn-primary btn-xs mb-2">Accept</button>
                    <button onClick={()=>handleReject(item._id)} className="btn btn-secondary btn-xs ml-2">Reject</button>
+                   
+                    {/* {
+                      item?.status === 'In Review' && <>
+                       <button onClick={()=>handleAccept(item._id)} className="btn btn-primary btn-xs mb-2">Accept</button>
+                   <button onClick={()=>handleReject(item._id)} className="btn btn-secondary btn-xs ml-2">Reject</button>
+                      </>
+                    } */}
+                 
                       
                   </td>
                 </tr>

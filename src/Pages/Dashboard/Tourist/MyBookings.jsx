@@ -61,7 +61,12 @@ const MyBookings = () => {
                 <td>{item.price}</td>
                 <td>{item.status}</td>
                 <td>
-                {item.status === 'Accepted'? <button className="btn btn-primary btn-xs">Pay</button> : <button className="btn btn-secondary btn-xs ml-2">Cancel</button>}
+                {/* {item.status === 'Accepted'? <button className="btn btn-primary btn-xs">Pay</button> : <button className="btn btn-secondary btn-xs ml-2">Cancel</button>} */}
+
+      <button disabled={item.status==="In Review" || item.status==="Rejected"} className="btn btn-primary btn-xs">Pay</button> 
+
+      {item?.status === "In Review" && <button className="btn btn-secondary btn-xs ml-2">Cancel</button>} 
+                
                     
                 </td>
               </tr>
