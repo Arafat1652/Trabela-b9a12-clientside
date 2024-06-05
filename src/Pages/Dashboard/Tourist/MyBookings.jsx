@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const MyBookings = () => {
   const { user } = useAuth();
@@ -18,6 +19,19 @@ const MyBookings = () => {
       return data;
     },
   });
+
+  const handleCancelItem=(_id)=>{
+    console.log('remove',_id);
+    axios.delete(`${import.meta.env.VITE_API_URL}/cancelbook/${_id}`)
+    .then(res=>{
+        if(res.data.deletedCount>0){
+        refetch()
+          toast.success(`${user?.displayName}! item is removed`)
+        }
+      })
+     
+}
+
   // console.log(bookings);
 
   return (
@@ -63,9 +77,9 @@ const MyBookings = () => {
                 <td>
                 {/* {item.status === 'Accepted'? <button className="btn btn-primary btn-xs">Pay</button> : <button className="btn btn-secondary btn-xs ml-2">Cancel</button>} */}
 
-      <button disabled={item.status==="In Review" || item.status==="Rejected"} className="btn btn-primary btn-xs">Pay</button> 
+              <button disabled={item.status==="In Review" || item.status==="Rejected"} className="btn btn-primary btn-xs">Pay</button> 
 
-      {item?.status === "In Review" && <button className="btn btn-secondary btn-xs ml-2">Cancel</button>} 
+              {item?.status === "In Review" && <button onClick={()=> handleCancelItem(item._id)} className="btn btn-secondary btn-xs ml-2">Cancel</button>} 
                 
                     
                 </td>
