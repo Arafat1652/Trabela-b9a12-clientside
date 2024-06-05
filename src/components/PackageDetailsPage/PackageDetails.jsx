@@ -15,7 +15,7 @@ const PackageDetails = () => {
   const [startDate, setStartDate] = useState(new Date());
   // console.log(loadedPackages);
 
-  const {_id ,tour_type ,trip_title ,price ,image_1 ,image_2 ,image_3 ,image_4 ,image_5 ,about_tour ,tour_plan ,package_name} = loadedPackages;
+  const {_id ,tour_type ,trip_title ,price, image ,image_1 ,image_2 ,image_3 ,image_4 ,image_5 ,about_tour ,tour_plan ,package_name} = loadedPackages;
 
   // console.log(startDate);
 
@@ -30,9 +30,10 @@ const PackageDetails = () => {
     const tourDate = startDate
     const guide_name = form.guide_name.value
     const package_name = loadedPackages.package_name
+    const package_image = loadedPackages.image
     const status = "In Review"
     
-    const bookingInfo =  {packageId, tourist_email, tourist_name, tourist_photo, price, tourDate, guide_name, package_name, status}
+    const bookingInfo =  {packageId, tourist_email, tourist_name, tourist_photo, price, tourDate, guide_name, package_name,package_image, status}
         //  console.table(bookingInfo);
         axios.post(`${import.meta.env.VITE_API_URL}/bookings`, bookingInfo)
         .then(res=>{
