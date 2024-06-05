@@ -18,7 +18,7 @@ const MyBookings = () => {
       return data;
     },
   });
-  console.log(bookings);
+  // console.log(bookings);
 
   return (
     <div>
@@ -33,6 +33,7 @@ const MyBookings = () => {
               <th>Guide Name</th>
               <th>Tour Date</th>
               <th>Price</th>
+              <th>status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -58,9 +59,10 @@ const MyBookings = () => {
                 <td>{item.guide_name}</td>
                 <td>{new Date(item.tourDate).toLocaleString()}</td>
                 <td>{item.price}</td>
+                <td>{item.status}</td>
                 <td>
-                    <button className="btn btn-primary btn-xs">Pay</button>
-                    <button className="btn btn-secondary btn-xs ml-2">Cancel</button>
+                {item.status === 'Accepted'? <button className="btn btn-primary btn-xs">Pay</button> : <button className="btn btn-secondary btn-xs ml-2">Cancel</button>}
+                    
                 </td>
               </tr>
             ))}

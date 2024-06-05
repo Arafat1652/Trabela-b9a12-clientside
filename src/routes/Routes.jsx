@@ -15,6 +15,7 @@ import DetailsStory from "../components/AllStory/DetailsStory";
 import AllTouristStory from "../components/AllStory/AllTouristStory";
 import GuideDetails from "../components/HomeComponents/GuideDetails/GuideDetails";
 import MyBookings from "../Pages/Dashboard/Tourist/MyBookings";
+import MyAssignedTours from "../Pages/Dashboard/Guides/MyAssignedTours";
 
 
 
@@ -77,9 +78,15 @@ import MyBookings from "../Pages/Dashboard/Tourist/MyBookings";
           index: true,
           element: <Profile/>,
         },
+        // tourist routes
         {
           path:'my-bookings',
           element: <MyBookings/>
+         },
+         // guide routes
+        {
+          path:'my-assignTour',
+          element: <MyAssignedTours/>
          },
        
       ]
