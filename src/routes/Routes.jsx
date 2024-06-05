@@ -16,6 +16,7 @@ import AllTouristStory from "../components/AllStory/AllTouristStory";
 import GuideDetails from "../components/HomeComponents/GuideDetails/GuideDetails";
 import MyBookings from "../Pages/Dashboard/Tourist/MyBookings";
 import MyAssignedTours from "../Pages/Dashboard/Guides/MyAssignedTours";
+import MyWishlist from "../Pages/Dashboard/Tourist/MyWishlist";
 
 
 
@@ -82,6 +83,10 @@ import MyAssignedTours from "../Pages/Dashboard/Guides/MyAssignedTours";
         {
           path:'my-bookings',
           element: <MyBookings/>
+         },
+        {
+          path:'my-wishlist',
+          element: <MyWishlist/>
          },
          // guide routes
         {
