@@ -17,6 +17,8 @@ import GuideDetails from "../components/HomeComponents/GuideDetails/GuideDetails
 import MyBookings from "../Pages/Dashboard/Tourist/MyBookings";
 import MyAssignedTours from "../Pages/Dashboard/Guides/MyAssignedTours";
 import MyWishlist from "../Pages/Dashboard/Tourist/MyWishlist";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
+import AddPackage from "../Pages/Dashboard/Admin/AddPackage";
 
 
 
@@ -92,6 +94,15 @@ import MyWishlist from "../Pages/Dashboard/Tourist/MyWishlist";
         {
           path:'my-assignTour',
           element: <MyAssignedTours/>
+         },
+         // admin routes
+        {
+          path:'add-package',
+          element: <AddPackage/>
+         },
+        {
+          path:'manage-users',
+          element: <ManageUsers/>
          },
        
       ]

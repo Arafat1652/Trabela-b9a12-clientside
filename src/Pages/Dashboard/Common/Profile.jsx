@@ -39,7 +39,7 @@ const Profile = () => {
               <a className="text-gray-400 mt-2 hover:text-blue-500">
                 {user?.email}
               </a>
-              <p className=" mt-2 hover:text-blue-500">
+              <p className=" mt-2 hover:text-blue-500 uppercase">
                {role}
               </p>
             </div>

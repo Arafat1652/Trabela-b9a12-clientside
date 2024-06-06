@@ -62,7 +62,6 @@ const AddinfoForm = () => {
                 className="mt-2 p-4 w-full border-2 rounded-lg "
                 placeholder="Enter Your Education"
                 name="education"
-                required
               />
             </div>
             {/* skill*/}
@@ -73,7 +72,6 @@ const AddinfoForm = () => {
                 className="mt-2 p-4 w-full border-2 rounded-lg "
                 placeholder="Enter Your Skills"
                 name="skill"
-                required
               />
             </div>
           </div>
@@ -86,7 +84,6 @@ const AddinfoForm = () => {
                 className="mt-2 p-4 w-full border-2 rounded-lg "
                 placeholder="Enter Your Experience"
                 name="experience"
-                required
               />
             </div>
             {/* phone */}
@@ -97,7 +94,6 @@ const AddinfoForm = () => {
                 className="mt-2 p-4 w-full border-2 rounded-lg "
                 placeholder="Your Phone Number"
                 name="phone"
-                required
               />
             </div>
           </div>
@@ -111,7 +107,6 @@ const AddinfoForm = () => {
                 className="mt-2 p-4 w-full border-2 rounded-lg "
                 placeholder="Address"
                 name="address"
-                required
               />
             </div>
             {/* tour place name*/}
@@ -122,7 +117,6 @@ const AddinfoForm = () => {
                 className="mt-2 p-4 w-full border-2 rounded-lg "
                 placeholder="Enter Your Age"
                 name="age"
-                required
               />
             </div>
           </div>
