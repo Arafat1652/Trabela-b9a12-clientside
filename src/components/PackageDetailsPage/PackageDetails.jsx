@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import {  Link, Navigate, useLoaderData, useLocation, useNavigate, } from "react-router-dom";
 import Nav from "../Nav/Nav";
 import useAuth from "../../Hooks/useAuth";
 import DatePicker from "react-datepicker";
@@ -11,44 +11,82 @@ import Swal from "sweetalert2";
 const PackageDetails = () => {
   const loadedPackages = useLoaderData();
   const { user } = useAuth();
-  const [guides, isPending] = useTourGuide()
+  const [guides, isPending] = useTourGuide();
   const [startDate, setStartDate] = useState(new Date());
   // console.log(loadedPackages);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const {_id ,tour_type ,trip_title ,price, image ,image_1 ,image_2 ,image_3 ,image_4 ,image_5 ,about_tour ,tour_plan ,package_name} = loadedPackages;
+  const {
+    _id,
+    tour_type,
+    trip_title,
+    price,
+    image,
+    image_1,
+    image_2,
+    image_3,
+    image_4,
+    image_5,
+    about_tour,
+    tour_plan,
+    package_name,
+  } = loadedPackages;
 
   // console.log(startDate);
 
-  const handleBooking =e=>{
-    e.preventDefault()
-    const form = e.target
-    const packageId = _id
-    const tourist_email = user?.email
-    const tourist_name = user?.displayName
-    const tourist_photo = user?.photoURL
-    const price = loadedPackages.price
-    const tourDate = startDate
-    const guide_name = form.guide_name.value
-    const package_name = loadedPackages.package_name
-    const package_image = loadedPackages.image
-    const status = "In Review"
-    
-    const bookingInfo =  {packageId, tourist_email, tourist_name, tourist_photo, price, tourDate, guide_name, package_name,package_image, status}
-        //  console.table(bookingInfo);
-        axios.post(`${import.meta.env.VITE_API_URL}/bookings`, bookingInfo)
-        .then(res=>{
-          if(res.data.insertedId){
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: `${user?.displayName} you booked this tour succefully`,
-              showConfirmButton: false,
-              timer: 1500
-            });
-            form.reset()
-          }
-        })
-  }
+  
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+
+    if (!user) {
+      setIsSubmitted(true);
+      navigate('/login', { state: { from: location } });
+      return;
+    }
+
+    const form = e.target;
+    const packageId = _id;
+    const tourist_email = user?.email;
+    const tourist_name = user?.displayName;
+    const tourist_photo = user?.photoURL;
+    const price = loadedPackages.price;
+    const tourDate = startDate;
+    const guide_name = form.guide_name.value;
+    const package_name = loadedPackages.package_name;
+    const package_image = loadedPackages.image;
+    const status = "In Review";
+
+    const bookingInfo = {
+      packageId,
+      tourist_email,
+      tourist_name,
+      tourist_photo,
+      price,
+      tourDate,
+      guide_name,
+      package_name,
+      package_image,
+      status,
+    };
+    //  console.table(bookingInfo);
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/bookings`, bookingInfo)
+      .then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user?.displayName} you booked this tour succefully`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          form.reset();
+        }
+      });
+  };
 
   return (
     <>
@@ -151,7 +189,7 @@ const PackageDetails = () => {
                   type="text"
                   className="mt-2 p-4 w-full border-2 rounded-lg "
                   defaultValue={user?.email}
-                 readOnly
+                  readOnly
                 />
               </div>
             </div>
@@ -182,45 +220,66 @@ const PackageDetails = () => {
             <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
               {/*guide Name */}
               <div className="form-control w-full ml-4 ">
-              <label className="label">
-                <span className="label-text">Guides</span>
-              </label>
-              <div className="input-group">
-                <select
-                required
-                  name="guide_name"
-                  className="select select-bordered w-full"
-                >
-                  
-                  {guides.map((item) => (
-                  <option value={item.name} key={item._id}>
-                    {item.name}
-                  </option>
-                  
-                ))}
-                </select>
+                <label className="label">
+                  <span className="label-text">Guides</span>
+                </label>
+                <div className="input-group">
+                  <select
+                    required
+                    name="guide_name"
+                    className="select select-bordered w-full"
+                  >
+                    {guides.map((item) => (
+                      <option value={item.name} key={item._id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              </div>
-             {/* tour place name*/}
-             <div className="w-full mt-6">
-              
-              <label className="mr-2">Tour Date</label>
+              {/* tour place name*/}
+              <div className="w-full mt-6">
+                <label className="mr-2">Tour Date</label>
 
-              {/* Date Picker Input Field */}
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                className="select select-bordered w-full p-2 rounded-md text-black"
-              />
-
+                {/* Date Picker Input Field */}
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="select select-bordered w-full p-2 rounded-md text-black"
+                />
               </div>
             </div>
             {/* fourth row */}
-      
-            <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
-              <button type="submit" className="w-full p-4">
-                Submit
-              </button>
+
+            <div className="w-full rounded-lg  mt-4 text-lg font-semibold">
+            {
+              user?.email ? <label htmlFor="my_modal_7" className="btn w-full bg-blue-700 text-white">
+              Submit
+            </label> : <Link to="/login" state={location.pathname} htmlFor="my_modal_7" className="btn w-full bg-blue-700 text-white">
+              Submit
+            </Link> 
+            }
+              
+
+              {/* Put this part before </body> tag */}
+              <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+              <div className="modal" role="dialog">
+                <div className="modal-box">
+                  <button
+                    type="submit"
+                    className="w-full p-4 bg-blue-700 text-white"
+                  >
+                    Confirm Your booking
+                  </button>
+                  <a href="/dashboard/my-bookings" className="text-primary">
+                    {" "}
+                    My bookings
+                  </a>
+                </div>
+                <label className="modal-backdrop" htmlFor="my_modal_7">
+                  Close
+                </label>
+              </div>
             </div>
           </form>
         </div>
@@ -231,41 +290,8 @@ const PackageDetails = () => {
 
 export default PackageDetails;
 
-
-{/* <div className="form-control w-1/2 ml-4 ">
-<label className="label">
-  <span className="label-text">Category</span>
-</label>
-<div className="input-group">
-  <select
-    name="category"
-    className="select select-bordered w-full"
-  >
-    
-    <option>Novel</option>
-    <option>Thriller</option>
-    <option>History</option>
-    <option>Drama</option>
-    <option>Sci-Fi</option>
-  </select>
-</div>
-</div>
-
-const category = form.category.value;
-
-<div className="w-full  mb-4 mt-6 ">
-              <label htmlFor="category" className="block text-gray-600">
-                Category
-              </label>
-              <select
-                required
-                className="w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md"
-                name="guideName"
-              >
-                {guides.map((item) => (
-                  <option value={item.name} key={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div> */}
+{
+  /* <button type="submit" className="w-full p-4">
+                Submit
+              </button> */
+}

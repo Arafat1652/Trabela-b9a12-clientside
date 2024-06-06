@@ -53,7 +53,7 @@ import AddPackage from "../Pages/Dashboard/Admin/AddPackage";
     },
     {
       path: '/tourItem/:tour_type',
-      element:<PrivateRoute><TourItem/></PrivateRoute>,
+      element:<TourItem/>,
      loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/types/${params.tour_type}`)
     },
     {

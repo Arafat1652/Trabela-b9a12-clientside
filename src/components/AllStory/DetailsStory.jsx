@@ -1,11 +1,13 @@
 import { useLoaderData } from "react-router-dom";
 import Nav from "../Nav/Nav";
-import { FaComment, FaEye} from "react-icons/fa6";
-import { FaShareAlt} from "react-icons/fa";
+import { FaComment, FaEye } from "react-icons/fa6";
+import { FaShareAlt } from "react-icons/fa";
 import { MdAccessTime } from "react-icons/md";
+import {FacebookShareButton} from "react-share";
 
 const DetailsStory = () => {
   const loadedStory = useLoaderData();
+  const currentPageUrl= window.location.href
   // console.log('story details',loadedStory);
   const {
     image,
@@ -21,7 +23,7 @@ const DetailsStory = () => {
   } = loadedStory;
   return (
     <div>
-        <Nav/>
+      <Nav />
       {/* component  */}
       <div className="max-w-screen-lg mx-auto">
         <main className="mt-10">
@@ -30,9 +32,7 @@ const DetailsStory = () => {
               <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
                 {title}
               </h2>
-              <a
-                className="py-2 text-green-700 inline-flex items-center justify-center mb-2"
-              >
+              <a className="py-2 text-green-700 inline-flex items-center justify-center mb-2">
                 {place}
               </a>
             </div>
@@ -41,25 +41,43 @@ const DetailsStory = () => {
           </div>
 
           <div className="flex mt-4 space-x-2 text-sm dark:text-[#1d4ed8]">
-			<button type="button" className="flex items-center p-1 space-x-1.5 text-xl">
-				<FaComment/>
-				<span>{comment}</span>
-			</button>
-			<button type="button" className="flex items-center p-1 space-x-1.5 text-xl">
-				<FaEye/>
-				<span>{view}</span>
-			</button>
-			
-			<button type="button" className="flex items-center p-1 space-x-1.5 text-xl">
-            <MdAccessTime />
-                <span>{time} min to read</span>
-				
-			</button>
+            <button
+              type="button"
+              className="flex items-center p-1 space-x-1.5 text-xl"
+            >
+              <FaComment />
+              <span>{comment}</span>
+            </button>
+            <button
+              type="button"
+              className="flex items-center p-1 space-x-1.5 text-xl"
+            >
+              <FaEye />
+              <span>{view}</span>
+            </button>
 
-            <button type="button" className="flex items-center p-1 space-x-1.5 text-xl">
-				<FaShareAlt/>
-			</button>
-		</div>
+            <button
+              type="button"
+              className="flex items-center p-1 space-x-1.5 text-xl"
+            >
+              <MdAccessTime />
+              <span>{time} min to read</span>
+            </button>
+
+            <button
+              type="button"
+              className="flex items-center p-1 space-x-1.5 text-xl"
+            >
+                      <FacebookShareButton url={currentPageUrl}
+                      quote="share this page"
+                      hashtag="#story"
+                      >
+                      <FaShareAlt />
+                      
+                      </FacebookShareButton>
+             
+            </button>
+          </div>
 
           <div className="flex flex-col lg:flex-row lg:space-x-12">
             <div className="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4">
@@ -109,7 +127,6 @@ const DetailsStory = () => {
               <p className="text-gray-600 hidden lg:block mt-4 p-0 lg:pr-12">
                 Do you like this blog?
               </p>
-            
             </div>
 
             <div className="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">

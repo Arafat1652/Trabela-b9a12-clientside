@@ -60,7 +60,7 @@ const Story = () => {
       </section>
       <div className="m-auto text-center">
         <Link to="/allStory" className="btn btn-outline">
-          All Packages
+          All Tourist Story
         </Link>
       </div>
     </div>

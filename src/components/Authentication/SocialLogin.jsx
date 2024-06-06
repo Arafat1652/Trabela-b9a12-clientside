@@ -1,5 +1,5 @@
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
 
@@ -7,11 +7,14 @@ import useAuth from "../../Hooks/useAuth";
 const SocialLogin = () => {
     const {signInWithGoogle} = useAuth()
     const navigate = useNavigate()
+    const location = useLocation()
+
 
     const handleGoogleLogin=()=>{
         signInWithGoogle()
         .then(result=>{
             console.log(result);
+            
             const userInfo = {
                 email: result.user?.email,
                 name: result.user?.displayName,
@@ -22,7 +25,7 @@ const SocialLogin = () => {
             axios.post(`${import.meta.env.VITE_API_URL}/user`, userInfo)
             .then(res=>{
                 console.log(res.data);
-                navigate('/')
+                navigate(location?.state ? location.state : '/')
             })
         })
     }
