@@ -38,8 +38,9 @@ if(isLoading){
     const comment = form.comment.value
     const date = new Date()
     const userName = user?.displayName
+    const userPhoto = user?.photoURL
 
-    const commentData = {rating, comment, date, userName, name, email}
+    const commentData = {rating, comment, date, userName, userPhoto, name, email}
     // console.log(commentData);
 
     axios.post(`${import.meta.env.VITE_API_URL}/comments`, commentData)
@@ -176,7 +177,7 @@ if(isLoading){
                 comments.map(comment=> <div key={comment._id} className="bg-white p-4 rounded-lg shadow-md">
                 <div className="flex gap-3 items-center">
                   <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFPmOpY97gyroSzrkb9ykGV7cdJtBBTPGuOA&s"
+                    src={comment.userPhoto}
                     className="object-cover w-10 h-10 rounded-full border-2 border-emerald-400  shadow-emerald-400"
                   />
     

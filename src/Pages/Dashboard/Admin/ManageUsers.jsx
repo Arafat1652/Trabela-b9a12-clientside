@@ -3,17 +3,69 @@ import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+import Select from 'react-select';
 
 const ManageUsers = () => {
   const {user} = useAuth()
+  // for pagination
+  const [itemsPerPage, setItemsPerPage] = useState(4)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [count, setCount] = useState(0)
+  // for search
+  const [search, setSearch] = useState('')
+  const [searchText, setSearchText] = useState()
+  const [searchType, setSearchType] = useState('name')
+// for filter
+const [selectedOption, setSelectedOption] = useState( { value: '', label: 'select' });
+const options = [
+  { value: '', label: 'all' },
+  { value: 'guide', label: 'guide' },
+  { value: 'user', label: 'user' },
+  { value: 'admin', label: 'admin' },
+];
+
+  const numberOfPages = Math.ceil(count / itemsPerPage)
+  const pages = [...Array(numberOfPages).keys()].map(element => element + 1)
+
+   //  handle pagination button
+   const handlePaginationButton = value => {
+    console.log(value)
+    setCurrentPage(value)
+  }
+
+  // handle search
+  const handleSearch = e => {
+    e.preventDefault()
+    setSearch(searchText)
+  }
+
+ 
+
+const {
+  data: userCount = []} = useQuery({
+  queryKey: ["userCount"],
+  queryFn: async() => {
+      const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/userCount`)
+      setCount(data.count) 
+      return data
+  },
+});
+
+
   const {
     data: users = [], isLoading, refetch} = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", currentPage, itemsPerPage, search, searchType, selectedOption.value],
     queryFn: async() => {
-        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/users`)
+        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/users?filter=${selectedOption.value}&page=${currentPage}&size=${itemsPerPage}&search=${search}&searchType=${searchType}`)
         return data
     },
   });
+
+  if(isLoading){
+    return <LoadingSpinner/>
+  }
 
   // console.log(users);
   const handleMakeAdmin= item =>{
@@ -69,8 +121,51 @@ const ManageUsers = () => {
 
   }
 
+  console.log(selectedOption)
+
+
   return (
     <div>
+       <div className="lg:flex items-center gap-8">
+          <form onSubmit={handleSearch}>
+            <div className='mb-2 flex p-1 overflow-hidden border rounded-lg  focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
+
+            <select
+                  className='px-4 py-2 text-gray-700 bg-white border-r outline-none'
+                    value={searchType}
+                    onChange={e => setSearchType(e.target.value)}
+                    >
+                    <option value="name">Name</option>
+                    <option value="email">Email</option>
+              </select>
+
+              <input
+                className='px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent'
+                type='text'
+                onChange={e => setSearchText(e.target.value)}
+                value={searchText}
+                name='search'
+                placeholder='Search'
+                aria-label='Search '
+              />
+
+              <button className='px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-[#002369] rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'>
+                Search
+              </button>
+            </div>
+          </form>
+        {/* filter */}
+          <div>
+          <Select
+        defaultValue={selectedOption}
+        onChange={setSelectedOption}
+        options={options}
+      />
+          </div>
+
+          </div>
+          
+
     <div className="overflow-x-auto">
       <table className="table">
         {/* head */}
@@ -116,6 +211,72 @@ const ManageUsers = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Pagination Section */}
+      <div className='flex justify-center mt-12'>
+        {/* Previous Button */}
+        <button
+          disabled={currentPage === 1}
+          onClick={() => handlePaginationButton(currentPage - 1)}
+          className='px-4 py-2 mx-1 text-gray-700 disabled:text-gray-500 capitalize bg-gray-200 rounded-md disabled:cursor-not-allowed disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:bg-blue-500  hover:text-white'
+        >
+          <div className='flex items-center -mx-1'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='w-6 h-6 mx-1 rtl:-scale-x-100'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M7 16l-4-4m0 0l4-4m-4 4h18'
+              />
+            </svg>
+
+            <span className='mx-1'>previous</span>
+          </div>
+        </button>
+        {/* Numbers */}
+        {pages.map(btnNum => (
+          <button
+            onClick={() => handlePaginationButton(btnNum)}
+            key={btnNum}
+            className={`hidden ${
+              currentPage === btnNum ? 'bg-blue-500 text-white' : ''
+            } px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500  hover:text-white`}
+          >
+            {btnNum}
+          </button>
+        ))}
+        {/* Next Button */}
+        <button
+          disabled={currentPage === numberOfPages}
+          onClick={() => handlePaginationButton(currentPage + 1)}
+          className='px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md hover:bg-blue-500 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:text-white disabled:cursor-not-allowed disabled:text-gray-500'
+        >
+          <div className='flex items-center -mx-1'>
+            <span className='mx-1'>Next</span>
+
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='w-6 h-6 mx-1 rtl:-scale-x-100'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M17 8l4 4m0 0l-4 4m4-4H3'
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
     </div>
   </div>
   );
