@@ -25,7 +25,7 @@ const MeetTourGuide = () => {
 
      const {
       data: bookingCount = []} = useQuery({
-      queryKey: ["guideCount"],
+      queryKey: ["guideCount", currentPage, itemsPerPage],
       queryFn: async() => {
           const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/guideCount`)
           setCount(data.count) 

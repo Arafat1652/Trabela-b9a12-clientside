@@ -10,7 +10,7 @@ import Select from 'react-select';
 const ManageUsers = () => {
   const {user} = useAuth()
   // for pagination
-  const [itemsPerPage, setItemsPerPage] = useState(4)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
   const [count, setCount] = useState(0)
   // for search
@@ -39,15 +39,16 @@ const options = [
   const handleSearch = e => {
     e.preventDefault()
     setSearch(searchText)
+    setCurrentPage(1)
   }
 
  
 
 const {
   data: userCount = []} = useQuery({
-  queryKey: ["userCount"],
+  queryKey: ["userCount", currentPage, itemsPerPage, search, searchType, selectedOption.value],
   queryFn: async() => {
-      const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/userCount`)
+      const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/userCount?filter=${selectedOption.value}&search=${search}&searchType=${searchType}`)
       setCount(data.count) 
       return data
   },

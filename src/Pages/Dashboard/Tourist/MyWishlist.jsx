@@ -25,9 +25,9 @@ const MyWishlist = () => {
 
     const {
       data: wishCount = []} = useQuery({
-      queryKey: ["wishCount"],
+      queryKey: ["wishCount",user?.email, currentPage, itemsPerPage],
       queryFn: async() => {
-          const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/wishCount`)
+          const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/wishCount/${user?.email}`)
           setCount(data.count) 
           return data
       },

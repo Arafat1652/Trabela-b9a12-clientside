@@ -24,9 +24,9 @@ const MyAssignedTours = () => {
 
     const {
       data: tourCount = []} = useQuery({
-      queryKey: ["tourCount"],
+      queryKey: ["tourCount", user?.displayName, currentPage, itemsPerPage,],
       queryFn: async() => {
-          const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/tourCount`)
+          const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/tourCount/${user?.displayName}`)
           setCount(data.count) 
           return data
       },

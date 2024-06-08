@@ -23,9 +23,9 @@ const MyBookings = () => {
 
     const {
       data: bookingCount = []} = useQuery({
-      queryKey: ["bookingCount"],
+      queryKey: ["bookingCount", user?.email, currentPage, itemsPerPage],
       queryFn: async() => {
-          const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/bookingCount`)
+          const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/bookingCount/${user?.email}`)
           setCount(data.count) 
           return data
       },
