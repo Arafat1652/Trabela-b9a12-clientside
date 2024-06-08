@@ -1,9 +1,11 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const AddPackage = () => {
   const {user} = useAuth()
+  const axiosSecure = useAxiosSecure()
 
   const handlePackageSubmit=(e)=>{
     e.preventDefault()
@@ -25,7 +27,7 @@ const AddPackage = () => {
          
     // console.table(packageDetails);
 
-    axios.post(`${import.meta.env.VITE_API_URL}/packages`, packageDetails)
+    axiosSecure.post(`/packages`, packageDetails)
     .then(res=>{
       if(res.data.insertedId){
         Swal.fire({

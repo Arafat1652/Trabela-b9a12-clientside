@@ -28,7 +28,7 @@ const MyAssignedTours = () => {
       data: tourCount = []} = useQuery({
       queryKey: ["tourCount", user?.displayName, currentPage, itemsPerPage,],
       queryFn: async() => {
-          const {data} = await axiosSecure(`${import.meta.env.VITE_API_URL}/tourCount/${user?.displayName}`)
+          const {data} = await axiosSecure(`/tourCount/${user?.displayName}`)
           setCount(data.count) 
           return data
       },
@@ -41,7 +41,7 @@ const MyAssignedTours = () => {
         queryKey: ["my-assignTour", user?.displayName, currentPage, itemsPerPage,],
         queryFn: async () => {
           const { data } = await axiosSecure(
-            `${import.meta.env.VITE_API_URL}/my-assignTour/${user?.displayName}?&page=${currentPage}&size=${itemsPerPage}`
+            `/my-assignTour/${user?.displayName}?&page=${currentPage}&size=${itemsPerPage}`
           );
     
           return data;

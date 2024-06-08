@@ -3,6 +3,8 @@ import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const MyBookings = () => {
   const { user } = useAuth();
@@ -10,6 +12,7 @@ const MyBookings = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
   const [count, setCount] = useState(0)
+  const axiosSecure = useAxiosSecure()
 
     const numberOfPages = Math.ceil(count / itemsPerPage)
     const pages = [...Array(numberOfPages).keys()].map(element => element + 1)
@@ -25,7 +28,7 @@ const MyBookings = () => {
       data: bookingCount = []} = useQuery({
       queryKey: ["bookingCount", user?.email, currentPage, itemsPerPage],
       queryFn: async() => {
-          const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/bookingCount/${user?.email}`)
+          const {data} = await axiosSecure(`/bookingCount/${user?.email}`)
           setCount(data.count) 
           return data
       },
@@ -40,8 +43,8 @@ const MyBookings = () => {
   } = useQuery({
     queryKey: ["my-bookings", user?.email, currentPage, itemsPerPage],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/my-bookings/${user?.email}?&page=${currentPage}&size=${itemsPerPage}`
+      const { data } = await axiosSecure(
+        `/my-bookings/${user?.email}?&page=${currentPage}&size=${itemsPerPage}`
       );
 
       return data;
@@ -105,7 +108,7 @@ const MyBookings = () => {
                 <td>
                 {/* {item.status === 'Accepted'? <button className="btn btn-primary btn-xs">Pay</button> : <button className="btn btn-secondary btn-xs ml-2">Cancel</button>} */}
 
-              <button disabled={item.status==="In Review" || item.status==="Rejected"} className="btn btn-primary btn-xs">Pay</button> 
+              <Link to={`/dashboard/payment/${item._id}`} disabled={item.status==="In Review" || item.status==="Rejected"} className="btn btn-primary btn-xs">Pay</Link> 
 
               {item?.status === "In Review" && <button onClick={()=> handleCancelItem(item._id)} className="btn btn-secondary btn-xs ml-2">Cancel</button>} 
                 

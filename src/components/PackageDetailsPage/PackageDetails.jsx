@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {  Link, Navigate, useLoaderData, useLocation, useNavigate, } from "react-router-dom";
 import Nav from "../Nav/Nav";
 import useAuth from "../../Hooks/useAuth";
@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import useTourGuide from "../../Hooks/useTourGuide";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Confetti from 'react-confetti'
 
 const PackageDetails = () => {
   const loadedPackages = useLoaderData();
@@ -15,31 +16,50 @@ const PackageDetails = () => {
   const [startDate, setStartDate] = useState(new Date());
   // console.log(loadedPackages);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [bookingCount, setBookingCount] = useState(0); // Add state for booking count
+  const [canApply, setCanApply] = useState(false); // Add state for apply button
+  const [showCongratulations, setShowCongratulations] = useState(false)
   const navigate = useNavigate();
   const location = useLocation();
 
-  const {
-    _id,
-    tour_type,
-    trip_title,
-    price,
-    image,
-    image_1,
-    image_2,
-    image_3,
-    image_4,
-    image_5,
-    about_tour,
-    tour_plan,
-    package_name,
-  } = loadedPackages;
+  const { _id, tour_type, trip_title, price, image, image_1, image_2, image_3, image_4, image_5, about_tour, tour_plan, package_name,} = loadedPackages;
 
-  // console.log(startDate);
+  console.log(startDate);
+  useEffect(() => {
+    if (user) {
+      // Fetch booking count
+      axios.get(`${import.meta.env.VITE_API_URL}/counted-booking/${user.email}`)
+        .then(res => {
+          const count = res.data.count;
+          setBookingCount(count);
+          if (count > 3) {
+            setCanApply(true);
+            setShowCongratulations(true); // Show congratulations message
+          } else {
+            setCanApply(false);
+            setShowCongratulations(false);
+          } // Enable "Apply" button if bookings > 3
+        })
+        .catch(error => {
+          console.error('Failed to fetch booking count:', error);
+        });
+    }
+  }, [bookingCount, canApply, user]);
 
+  // const  {data, isPending, refetch}  = useQuery({
+  //   queryKey: ['counted-booking', user?.email],
+  //   queryFn: async () =>{
+  //    const res =await axios.get(`${import.meta.env.VITE_API_URL}/counted-booking/${user?.email}`)
+  //    setBookingCount(res.data.count);
+  //     setCanApply(res.data.count > 3);
+  //     return res.data
+  //   }
+    
+  // })
   
 
   const handleBooking = (e) => {
-    e.preventDefault();
+    
 
     if (!user) {
       setIsSubmitted(true);
@@ -261,7 +281,7 @@ const PackageDetails = () => {
             }
               
 
-              {/* Put this part before </body> tag */}
+              {/* modal */}
               <input type="checkbox" id="my_modal_7" className="modal-toggle" />
               <div className="modal" role="dialog">
                 <div className="modal-box">
@@ -282,6 +302,16 @@ const PackageDetails = () => {
               </div>
             </div>
           </form>
+          {/* apply button */}
+          {showCongratulations && (
+          <div className="congratulations-container">
+            <Confetti tweenDuration={5000} recycle={false}/>
+            <h2 className="text-4xl text-center text-green-500 font-bold mt-4">
+              Congratulations! You have earned a discount!
+            </h2>
+          </div>
+      )}
+          <button className="btn btn-secondary mt-8" disabled={!canApply}>Apply</button>
         </div>
       </div>
     </>
@@ -289,9 +319,3 @@ const PackageDetails = () => {
 };
 
 export default PackageDetails;
-
-{
-  /* <button type="submit" className="w-full p-4">
-                Submit
-              </button> */
-}

@@ -19,6 +19,9 @@ import MyAssignedTours from "../Pages/Dashboard/Guides/MyAssignedTours";
 import MyWishlist from "../Pages/Dashboard/Tourist/MyWishlist";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import AddPackage from "../Pages/Dashboard/Admin/AddPackage";
+import AdminRoute from "./AdminRoute";
+import GuideRoute from "./GuideRoute";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 
 
 
@@ -79,30 +82,35 @@ import AddPackage from "../Pages/Dashboard/Admin/AddPackage";
       children:[
         {
           index: true,
-          element: <Profile/>,
+          element: <PrivateRoute><Profile/></PrivateRoute>,
         },
         // tourist routes
         {
           path:'my-bookings',
-          element: <MyBookings/>
+          element: <PrivateRoute><MyBookings/></PrivateRoute>
          },
         {
           path:'my-wishlist',
-          element: <MyWishlist/>
+          element: <PrivateRoute><MyWishlist/></PrivateRoute>
+         },
+        {
+          path:'payment/:id',
+          element: <Payment/>,
+          // loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/my-bookings/${user?.email}${params.id}`)
          },
          // guide routes
         {
           path:'my-assignTour',
-          element: <MyAssignedTours/>
+          element: <PrivateRoute><GuideRoute><MyAssignedTours/></GuideRoute></PrivateRoute>
          },
          // admin routes
         {
           path:'add-package',
-          element: <AddPackage/>
+          element: <PrivateRoute><AdminRoute><AddPackage/></AdminRoute></PrivateRoute>
          },
         {
           path:'manage-users',
-          element: <ManageUsers/>
+          element: <PrivateRoute><AdminRoute><ManageUsers/></AdminRoute></PrivateRoute>
          },
        
       ]

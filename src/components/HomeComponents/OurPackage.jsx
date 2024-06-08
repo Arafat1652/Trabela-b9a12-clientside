@@ -1,7 +1,7 @@
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { FaRegHeart } from "react-icons/fa";
 import usePackage from "../../Hooks/usePackage";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -10,12 +10,16 @@ import toast from "react-hot-toast";
 const OurPackage = () => {
   const [packages, isPending] = usePackage();
   const {user} = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   if (isPending) {
     return <LoadingSpinner />
   }
 
   const handleWishlist=(info)=>{
+    // if logged in
+    if(user && user?.email){
    const  { _id, package_name, image, price} = info
 
    const wishData = {
@@ -36,7 +40,24 @@ const OurPackage = () => {
         .catch(error=>{
           toast.success("thie package already in your wishList")
         })
+      }
 
+      // if not logged in
+      else{
+        Swal.fire({
+          title: "You are not Logged In?",
+          text: "Please login to add to the wishlist",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Login!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/login');
+          }
+        });
+      }
 
   }
 

@@ -50,7 +50,7 @@ const {
   data: userCount = []} = useQuery({
   queryKey: ["userCount", currentPage, itemsPerPage, search, searchType, selectedOption.value],
   queryFn: async() => {
-      const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/userCount?filter=${selectedOption.value}&search=${search}&searchType=${searchType}`)
+      const {data} = await axiosSecure(`/userCount?filter=${selectedOption.value}&search=${search}&searchType=${searchType}`)
       setCount(data.count) 
       return data
   },
@@ -61,7 +61,7 @@ const {
     data: users = [], isLoading, refetch} = useQuery({
     queryKey: ["users", currentPage, itemsPerPage, search, searchType, selectedOption.value],
     queryFn: async() => {
-        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/users?filter=${selectedOption.value}&page=${currentPage}&size=${itemsPerPage}&search=${search}&searchType=${searchType}`)
+        const {data} = await axiosSecure(`/users?filter=${selectedOption.value}&page=${currentPage}&size=${itemsPerPage}&search=${search}&searchType=${searchType}`)
         return data
     },
   });
