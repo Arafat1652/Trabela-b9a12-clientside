@@ -6,9 +6,11 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Select from 'react-select';
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageUsers = () => {
   const {user} = useAuth()
+  const axiosSecure = useAxiosSecure()
   // for pagination
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)

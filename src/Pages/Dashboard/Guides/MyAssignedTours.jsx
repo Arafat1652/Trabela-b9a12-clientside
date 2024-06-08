@@ -3,10 +3,12 @@ import useAuth from "../../../Hooks/useAuth";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 
 const MyAssignedTours = () => {
     const {user} = useAuth()
+    const axiosSecure = useAxiosSecure()
   // for pagination
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
@@ -26,7 +28,7 @@ const MyAssignedTours = () => {
       data: tourCount = []} = useQuery({
       queryKey: ["tourCount", user?.displayName, currentPage, itemsPerPage,],
       queryFn: async() => {
-          const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/tourCount/${user?.displayName}`)
+          const {data} = await axiosSecure(`${import.meta.env.VITE_API_URL}/tourCount/${user?.displayName}`)
           setCount(data.count) 
           return data
       },
@@ -38,7 +40,7 @@ const MyAssignedTours = () => {
       } = useQuery({
         queryKey: ["my-assignTour", user?.displayName, currentPage, itemsPerPage,],
         queryFn: async () => {
-          const { data } = await axios.get(
+          const { data } = await axiosSecure(
             `${import.meta.env.VITE_API_URL}/my-assignTour/${user?.displayName}?&page=${currentPage}&size=${itemsPerPage}`
           );
     
