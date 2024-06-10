@@ -1,12 +1,14 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Nav from "../Nav/Nav";
 import { FaComment, FaEye } from "react-icons/fa6";
 import { FaShareAlt } from "react-icons/fa";
 import { MdAccessTime } from "react-icons/md";
 import {FacebookShareButton} from "react-share";
+import useAuth from "../../Hooks/useAuth";
 
 const DetailsStory = () => {
   const loadedStory = useLoaderData();
+  const {user} = useAuth()
   const currentPageUrl= window.location.href
   // console.log('story details',loadedStory);
   const {
@@ -64,7 +66,8 @@ const DetailsStory = () => {
               <span>{time} min to read</span>
             </button>
 
-            <button
+            {
+              user?.email ? <button
               type="button"
               className="flex items-center p-1 space-x-1.5 text-xl"
             >
@@ -76,7 +79,16 @@ const DetailsStory = () => {
                       
                       </FacebookShareButton>
              
-            </button>
+            </button> : <Link to="/login"
+              type="button"
+              className="flex items-center p-1 space-x-1.5 text-xl"
+            >
+              <FaShareAlt />
+             
+            </Link>
+            }
+
+            
           </div>
 
           <div className="flex flex-col lg:flex-row lg:space-x-12">

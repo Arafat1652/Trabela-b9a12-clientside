@@ -12,6 +12,7 @@ import Nav from "../Nav/Nav";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
 import SocialLogin from "./SocialLogin";
+import Footer from "../Footer/Footer";
 
 
 
@@ -123,7 +124,7 @@ const Register = () => {
 
                 <span className="absolute top-9 right-4 text-black" onClick={()=> setShowPassword(!showPassword)}>{showPassword? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash> }</span>
             </div>
-            <button className="block w-full p-3 text-center rounded-sm text-gray-900 bg-[#13e5c0]">Register</button>
+            <button className="block w-full p-3 text-center rounded-sm bg-orange-2 text-white">Register</button>
         </form>
 
         <p className="text-green-500">{successReg}</p>
@@ -131,11 +132,11 @@ const Register = () => {
         {/* google Login */}
         <SocialLogin/>
 
-        <p className="text-sm text-center sm:px-6 text-gray-400">Already have an account?
-            <NavLink to='/login' rel="noopener noreferrer" href="#" className="underline text-primary"> Login</NavLink>
+        <p className="text-sm text-center sm:px-6 ">Already have an account?
+            <NavLink to='/login' rel="noopener noreferrer" href="#" className="underline text-orange-2"> Login</NavLink>
         </p>
     </div>
-    {/* <Footer></Footer> */}
+      <Footer/>
      </div>
     );
 };

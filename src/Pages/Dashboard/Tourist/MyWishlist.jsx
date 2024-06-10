@@ -62,7 +62,7 @@ const MyWishlist = () => {
           <table className="table">
             {/* head */}
             <thead>
-              <tr>
+              <tr className="bg-red-200">
                 <th>#</th>
                 <th>Package Image</th>
                 <th>Package Name</th>

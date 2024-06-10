@@ -150,7 +150,7 @@ const AddStory = () => {
             </div>
           </div>
 
-          <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
+          <div className="w-full rounded-lg bg-orange-2 mt-4 text-white text-lg font-semibold">
             <button type="submit" className="w-full p-4">
               Submit
             </button>

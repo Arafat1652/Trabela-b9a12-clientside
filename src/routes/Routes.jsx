@@ -22,6 +22,7 @@ import AddPackage from "../Pages/Dashboard/Admin/AddPackage";
 import AdminRoute from "./AdminRoute";
 import GuideRoute from "./GuideRoute";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import ErrorPage from "../components/ErrorPage/ErrorPage";
 
 
 
@@ -29,6 +30,7 @@ import Payment from "../Pages/Dashboard/Payment/Payment";
     {
       path: "/",
       element: <Main/>,
+      errorElement: <ErrorPage/>,
       children:[
         {
             index: true,

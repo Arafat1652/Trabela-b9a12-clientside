@@ -6,6 +6,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 import { MdOutlineLogout } from "react-icons/md";
 import logo from '../../assets/logo.png'
+import { motion } from "framer-motion"
 
 const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -30,21 +31,43 @@ const Nav = () => {
 
   const navLink = (
     <>
-      <li className="mr-4 font-semibold">
+      <motion.li 
+      whileHover={{scale:1.3, color: "#ff681a"}}
+      className="mr-10 font-semibold">
         <NavLink to="/">Home</NavLink>
-      </li>
-      <li className="mr-4 font-semibold">
+      </motion.li>
+
+      <div className="divider divider-horizontal"></div>
+
+      <motion.li
+      whileHover={{scale:1.3, color: "#ff681a"}}
+      className="mr-10 font-semibold">
         <NavLink to="/community">Community</NavLink>
-      </li>
-      <li className="mr-4 font-semibold">
+      </motion.li>
+
+      <div className="divider divider-horizontal"></div>
+
+      <motion.li
+      whileHover={{scale:1.3, color: "#ff681a"}}
+      className="mr-10 font-semibold">
         <NavLink to="/blogs">Blogs</NavLink>
-      </li>
-      <li className="mr-4 font-semibold">
+      </motion.li>
+
+      <div className="divider divider-horizontal"></div>
+
+      <motion.li
+      whileHover={{scale:1.3, color: "#ff681a"}}
+      className="mr-10 font-semibold">
         <NavLink to="/about">About Us</NavLink>
-      </li>
-      <li className="mr-4 font-semibold">
+      </motion.li>
+
+      <div className="divider divider-horizontal"></div>
+
+      <motion.li
+      whileHover={{scale:1.3, color: "#ff681a"}}
+      className="mr-10 font-semibold">
         <NavLink to="/contact">Contact Us</NavLink>
-      </li>
+      </motion.li>
     </>
   );
 
@@ -54,7 +77,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="bg-[#000000] text-[#ccff00] py-3">
+    <div className=" py-3">
       <div className="navbar max-w-[98%] mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -76,15 +99,15 @@ const Nav = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[2] p-2 shadow bg-gray-800 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[2] p-2 shadow bg-gray-800 text-white rounded-box w-52"
             >
               {navLink}
             </ul>
           </div>
           <div className="flex-1">
             <Link to="/" className="flex gap-2 items-center">
-              <img className='w-auto h-7' src={logo} alt='' />
-              <span className="text-xl">Traveladvisor</span>
+              <img className='w-auto h-7' src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_logoset_solid_green.svg" alt='' />
+              <span className="lg:text-3xl text-orange-2 font-mont font-extrabold">Travela</span>
             </Link>
           </div>
         </div>
@@ -133,7 +156,7 @@ const Nav = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content z-[1] menu  shadow bg-base-100 rounded-box w-56  backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100"
+                  className="dropdown-content z-50 menu shadow rounded-box w-56  backdrop-filter backdrop-blur-sm bg-opacity-50 bg-black border border-purple-500  text-white"
                 >
 
                   <li className=" ml-4 my-2">
@@ -151,7 +174,7 @@ const Nav = () => {
                   <li>
                   <button
                 onClick={handleLogOut}
-                className=" border-none hover:bg-[#ccff00] font-bold px-4"
+                className=" border-none font-bold px-4"
               >
                <MdOutlineLogout/> Logout
               </button>
@@ -165,8 +188,7 @@ const Nav = () => {
             <>
               <Link to="/login">
                 <button
-                  className="btn bg-[#ccff00] font-bold
-            text-black px-6 border-none"
+                  className="btn bg-orange-2 font-bold text-white px-6 border-none"
                 >
                   LOGIN
                 </button>

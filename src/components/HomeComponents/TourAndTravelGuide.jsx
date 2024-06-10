@@ -6,10 +6,11 @@ import MeetTourGuide from "./MeetTourGuide";
 
 const TourAndTravelGuide = () => {
   return (
-    <div className="container mx-auto my-24">
-        <h3 className="text-3xl mt-24 text-center font-bold"> Tourism and Travel Guide</h3>
-                <p className="lg:w-[650px] mx-auto  mb-10 text-center mt-3">Step into our vibrant world of creativity at ARTISAN, where imagination knows no bounds! Our art and craft store is a treasure.</p>
-                <div className="max-w-7xl mx-auto grid lg:grid-cols-3 md:grid-cols-2 gap-8 p-3 lg:p-0"></div>
+    <div className="container mx-auto my-24 p-2">
+      <h3 className="mt-24 text-2xl text-orange-2 text-center font-play">Tips & Advice</h3>
+        <h3 className="text-4xl mt-4 text-center font-bold font-mont"> Tourism and Travel Guide</h3>
+                <p className="lg:w-[650px] text-gray-400 mx-auto  text-center mt-3">Explore comprehensive guides to destinations across the globe. From hidden gems to popular tourist spots, we cover it all with detailed information and local insights.</p>
+               <img className="mx-auto mb-10" src="https://roam.qodeinteractive.com/wp-content/plugins/mikado-tours/assets/img/separator.png" alt="" />
       <Tabs>
         <TabList>
           <Tab>Overview</Tab>

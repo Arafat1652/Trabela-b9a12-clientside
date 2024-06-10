@@ -9,6 +9,8 @@ import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
+import Nav from "../../Nav/Nav";
+import Footer from "../../Footer/Footer";
 
 const GuideDetails = () => {
   const loadedGuideDetails = useLoaderData();
@@ -63,6 +65,7 @@ if(isLoading){
 
   return (
     <div>
+      <Nav/>
       <div className="bg-white flex justify-center items-center  p-5">
         <div className="flex flex-col items-center justify-between bg-white dark:bg-gray-800 shadow-md shadow-gray-300 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600 w-full md:w-8/12 mx-auto h-auto rounded-xl transition-all ease-in-out duration-500 mb-4 py-2 px-2 md:px-4">
           <div className="w-full flex items-center justify-between">
@@ -204,6 +207,7 @@ if(isLoading){
 
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

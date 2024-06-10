@@ -62,17 +62,17 @@ const OurPackage = () => {
   }
 
   return (
-    <div className="my-24">
-      <div className="grid grid-cols-4">
+    <div className="my-24 container">
+      <div className="grid lg:grid-cols-4 gap-8 md:grid-cols-2">
         {packages.slice(0, 3).map((item) => (
           <div
             key={item._id}
-            className="w-72 relative bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
+            className="w-full lg:w-72 ml-2 relative bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
           >
             <img
               src={item.image}
               alt="Product"
-              className=" h-80 w-72 object-cover rounded-t-xl"
+              className="w-full h-80 lg:w-72 object-cover rounded-t-xl"
             />
             <button onClick={()=> handleWishlist(item)} className="absolute top-0 right-0 text-black rounded-full bg-white p-2 m-2  text-xl font-medium">
               <FaRegHeart className="hover:fill-red-400" />
@@ -87,14 +87,14 @@ const OurPackage = () => {
               </p>
               <div className="flex items-center">
                 <p className="text-lg font-semibold text-black cursor-auto my-3">
-                  ${item.price}
+                 $ {item.price}
                 </p>
 
                 <Link to={`/details/${item._id}`} className="ml-auto">
                   <button className="relative inline-block font-medium group py-1.5 px-2.5 ">
-                    <span className="absolute inset-0 w-full h-full transition duration-400 ease-out transform translate-x-1 translate-y-1 bg-indigo-600 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-                    <span className="absolute inset-0 w-full h-full bg-white border border-indigo-600 group-hover:bg-indigo-50"></span>
-                    <span className="relative text-indigo-600">
+                    <span className="absolute inset-0 w-full h-full transition duration-400 ease-out transform translate-x-1 translate-y-1 bg-purple-700 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                    <span className="absolute inset-0 w-full h-full bg-orange-2 border group-hover:bg-indigo-50"></span>
+                    <span className="relative text-white uppercase">
                      View Package
                     </span>
                   </button>
@@ -105,8 +105,8 @@ const OurPackage = () => {
         ))}
       </div>
 
-      <div className="m-auto text-center my-20">
-        <Link to="/allPackage" className="btn btn-outline">
+      <div className="m-auto text-center my-16 ">
+        <Link to="/allPackage" className="btn btn-outline bg-orange-2 text-white rounded-none uppercase text-xl">
           All Packages
         </Link>
       </div>

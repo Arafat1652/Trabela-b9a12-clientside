@@ -15,6 +15,7 @@ import TouristMenu from './Menu/TouristMenu'
 import { CgProfile } from 'react-icons/cg'
 import AdminMenu from './Menu/AdminMenu'
 import useRole from '../../Hooks/useRole'
+import { FaHome } from 'react-icons/fa'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
@@ -33,13 +34,7 @@ const Sidebar = () => {
         <div>
           <div className='block cursor-pointer p-4 font-bold'>
             <Link to='/'>
-              <img
-                // className='hidden md:block'
-                src={logo}
-                alt='logo'
-                width='100'
-                height='100'
-              />
+            <FaHome size={30}/>
             </Link>
           </div>
         </div>
@@ -60,17 +55,11 @@ const Sidebar = () => {
       >
         <div>
           <div>
-            <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto'>
-              <Link to='/'>
-                <img
-                  // className='hidden md:block'
-                  src={logo}
-                  alt='logo'
-                  width='100'
-                  height='100'
-                />
-              </Link>
-            </div>
+            <Link to='/' className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center mx-auto'>
+              
+                <FaHome size={30}/>
+              
+            </Link>
           </div>
 
           {/* Nav Items */}
@@ -98,14 +87,14 @@ const Sidebar = () => {
 
           {/* Profile Menu */}
           
-          <button
+          {/* <button
             onClick={logOut}
             className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
           >
             <GrLogout className='w-5 h-5' />
 
             <span className='mx-4 font-medium'>Logout</span>
-          </button>
+          </button> */}
         </div>
       </div>
     </>

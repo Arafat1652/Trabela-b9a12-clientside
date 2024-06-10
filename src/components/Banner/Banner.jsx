@@ -19,70 +19,30 @@ const Banner = () => {
       loop={true}>
     <SwiperSlide>
   <div className="relative">
-    <div className="hero h-[80vh] bg-cover object-center rounded-lg overflow-hidden" style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://images.unsplash.com/photo-1599074914978-2946b69e5a4a?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwYmFuZ2xhZGVzaHxlbnwwfHwwfHx8MA%3D%3D)",
+    <div className="hero h-[80vh] bg-cover object-center overflow-hidden" style={{
+        backgroundImage: "url(https://plus.unsplash.com/premium_photo-1673254849270-b092fe811657?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
       }}>
-      {/* <div className="hero-content lg:mr-60 md:mr-40">
-        <div>
-          <h1 className="static text-[#a8effa]  md:text-4xl lg:text-6xl text-2xl font-bold">Discover What You Love {''}<span style={{ color: 'red', fontWeight: 'bold' }}>
-          <Typewriter
-            words={['Unleash your creativity.', 'Craft your masterpiece.', 'Express yourself through art.']}
-            loop={false}
-            cursor
-            cursorStyle='_'
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1000}
-          />
-        </span></h1>
-        </div>
-      </div> */}
+      
+      <img src="https://roam.qodeinteractive.com/wp-content/uploads/2017/08/home-11-slider-image-1a.png" alt=""  />
     </div>
   </div>
 </SwiperSlide>
 
    <SwiperSlide> <div className="z-0">
-          <div className="hero h-[80vh] bg-cover object-center rounded-lg " style={{
-          backgroundImage:"linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://images.unsplash.com/photo-1558180348-506ab49a5912?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+          <div className="hero h-[80vh] bg-cover object-center  " style={{
+          backgroundImage:" url(https://images.pexels.com/photos/13364693/pexels-photo-13364693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)",
         }}>
-           {/* <div className="hero-content lg:mr-60 md:mr-40">
-              <div>
-              <h1 className="text-[#a8effa] md:text-4xl lg:text-6xl text-2xl font-bold">Discover What You Love {''}<span style={{ color: 'red', fontWeight: 'bold' }}>
-          <Typewriter
-            words={['Unleash your creativity.', 'Craft your masterpiece.', 'Express yourself through art.']}
-            loop={false}
-            cursor
-            cursorStyle='_'
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1000}
-          />
-        </span></h1>
-              
-              </div>
-            </div> */}
+          <img src="https://roam.qodeinteractive.com/wp-content/uploads/2017/08/h5-slide-3-title.png" alt=""  />
+           
           </div>
       </div></SwiperSlide>
 
     <SwiperSlide> <div className="z-0">
-          <div className="hero h-[80vh] bg-cover object-center rounded-lg " style={{
-          backgroundImage:"linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://images.unsplash.com/photo-1603976487252-5f1cee35fe6e?q=80&w=2342&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+          <div className="hero h-[80vh] bg-cover object-center  " style={{
+          backgroundImage:"url(https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
         }}>
-           {/* <div className="hero-content lg:mr-60 md:mr-40">
-              <div>
-              <h1 className=" text-[#a8effa] md:text-4xl lg:text-6xl text-2xl font-bold">Discover What You Love {''}<span style={{ color: 'red', fontWeight: 'bold' }}>
-          <Typewriter
-             words={['Unleash your creativity.', 'Craft your masterpiece.', 'Express yourself through art.']}
-            loop={false}
-            cursor
-            cursorStyle='_'
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1000}
-          />
-        </span></h1>
-              </div>
-            </div> */}
+          <img src="https://roam.qodeinteractive.com/wp-content/uploads/2017/08/home-5-slider-graphic.png" alt=""  />
+
           </div>
       </div></SwiperSlide>
 

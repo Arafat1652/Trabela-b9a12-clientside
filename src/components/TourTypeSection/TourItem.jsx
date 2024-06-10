@@ -1,5 +1,7 @@
 import { FaRegHeart } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router-dom";
+import Nav from "../Nav/Nav";
+import Footer from "../Footer/Footer";
 
 
 const TourItem = () => {
@@ -7,6 +9,8 @@ const TourItem = () => {
     // console.log('tour type nana',tourType);
     
     return (
+        <>
+        <Nav/>
         <div className="grid max-w-7xl my-24 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">
             {
                 tourType.map(item => <div
@@ -49,7 +53,8 @@ const TourItem = () => {
             }
             
         </div>
-        // <h3>clas</h3>
+        <Footer/>
+        </>
     );
 };
 

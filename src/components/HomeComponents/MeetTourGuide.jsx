@@ -56,7 +56,7 @@ const MeetTourGuide = () => {
       <div className="container mx-auto px-4 sm:px-8">
         <div className="bg-white shadow-md rounded-md overflow-hidden  mx-auto mt-16">
           <div className="bg-gray-100 py-2 px-4">
-            <h2 className="text-xl font-semibold text-gray-800">
+            <h2 className="text-xl font-semibold text-gray-800 font-mont text-center">
               Meet Our Guide
             </h2>
           </div>
@@ -96,10 +96,13 @@ const MeetTourGuide = () => {
                     <th>{item.name}</th>
                     <th>{item.email}</th>
                     <th>
-                      <Link to={`/guideDetails/${item._id}`} className="btn btn-sm btn-primary">Details</Link>
+                      <Link to={`/guideDetails/${item._id}`} className="btn btn-outline bg-orange-2 text-white rounded-none btn-sm text-xs">Details</Link>
                     </th>
                   </tr>)
                }
+               {/* <Link to="/allPackage" className="btn btn-outline bg-orange-2 text-white rounded-none uppercase text-xl">
+          All Packages
+        </Link> */}
 
               </tbody>
             </table>

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import useStory from "../../Hooks/useStory";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { FaComment, FaEye } from "react-icons/fa";
+import Footer from "../Footer/Footer";
+import Nav from "../Nav/Nav";
 
 const AllTouristStory = () => {
     const [storys, isPending] = useStory()
@@ -11,7 +13,9 @@ const AllTouristStory = () => {
     }
 
   return (
-    <div className="container p-6 mx-auto gap-8 my-24">
+   <>
+   <Nav/>
+    <div className="container p-6 mx-auto gap-8 my-10">
       <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
         {storys.map((item) => (
           <Link
@@ -57,6 +61,8 @@ const AllTouristStory = () => {
         ))}
       </div>
     </div>
+    <Footer/>
+   </>
   );
 };
 

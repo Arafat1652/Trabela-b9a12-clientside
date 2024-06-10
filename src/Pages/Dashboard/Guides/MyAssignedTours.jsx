@@ -82,7 +82,7 @@ const MyAssignedTours = () => {
           <table className="table">
             {/* head */}
             <thead>
-              <tr>
+              <tr className="bg-red-200">
                 <th>#</th>
                 <th>Package Image</th>
                 <th>Package Name</th>
@@ -118,7 +118,7 @@ const MyAssignedTours = () => {
                   <td>{item.status}</td>
                   <td>
                   <button onClick={()=>handleAccept(item._id)} className="btn btn-primary btn-xs mb-2">Accept</button>
-                   <button onClick={()=>handleReject(item._id)} className="btn btn-secondary btn-xs ml-2">Reject</button>
+                   <button onClick={()=>handleReject(item._id)} className="btn bg-red-600 text-white btn-xs ml-2">Reject</button>
                    
                     {/* {
                       item?.status === 'In Review' && <>

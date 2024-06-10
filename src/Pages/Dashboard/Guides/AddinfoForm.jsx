@@ -121,8 +121,8 @@ const AddinfoForm = () => {
             </div>
           </div>
 
-          <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
-            <button type="submit" className="w-full p-4">
+          <div className="w-full rounded-lg mt-4 text-white text-lg font-semibold">
+            <button type="submit" className="w-full p-4 bg-orange-2">
               Submit
             </button>
           </div>
