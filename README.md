@@ -1,6 +1,6 @@
 # Trabela
 
-StoryStacks Live site : [https://travel-advisor-a12.web.app](https://travel-advisor-a12.web.app)
+Trabela Live site : [https://travel-advisor-a12.web.app](https://travel-advisor-a12.web.app)
 
 ### Assignment Category: assignment12_category_0003
 
