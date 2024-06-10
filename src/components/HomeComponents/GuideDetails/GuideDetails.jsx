@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FiPhoneCall } from "react-icons/fi";
 import { SlLocationPin } from "react-icons/sl";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -162,7 +162,17 @@ if(isLoading){
                   placeholder="Enter your comment"
                 ></textarea>
               </div>
-              <div className="flex justify-end">
+
+              {
+              user?.email ? <div className="flex justify-end">
+              <input
+              type='submit'
+                className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                value="Post Comment"
+              />
+               
+             
+            </div>: <Link to='/login' className="flex justify-end">
                 <input
                 type='submit'
                   className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -170,7 +180,10 @@ if(isLoading){
                 />
                  
                
-              </div>
+              </Link>
+            }
+              
+              
             </form>
           </div>
           {/* comments */}

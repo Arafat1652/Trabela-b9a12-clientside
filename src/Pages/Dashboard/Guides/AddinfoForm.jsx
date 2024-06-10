@@ -1,9 +1,11 @@
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const AddinfoForm = () => {
         const {user} = useAuth()
+        const axiosSecure = useAxiosSecure()
 
     const handleGuideInfo=e=>{
         e.preventDefault()
@@ -20,7 +22,7 @@ const AddinfoForm = () => {
         const guideInfo =  {email, education, skill, experience, phone, address, age}
          console.log(guideInfo);
 
-         axios.put(`${import.meta.env.VITE_API_URL}/user/${user?.email}`, guideInfo)
+         axiosSecure.put(`/user/${user?.email}`, guideInfo)
         .then(res=>{
           if(res.data.modifiedCount){
             Swal.fire({

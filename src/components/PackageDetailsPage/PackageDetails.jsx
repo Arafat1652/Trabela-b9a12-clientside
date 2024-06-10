@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import Confetti from 'react-confetti'
 import Footer from "../Footer/Footer";
 import { IoMdCheckmark } from "react-icons/io";
+import MeetTourGuide from "../HomeComponents/MeetTourGuide";
 
 const PackageDetails = () => {
   const loadedPackages = useLoaderData();
@@ -264,6 +265,7 @@ const PackageDetails = () => {
             </div>
           </div>
         </section>
+        <MeetTourGuide/>
             </div>
 
         </div>
@@ -360,7 +362,7 @@ const PackageDetails = () => {
             {
               user?.email ? <label htmlFor="my_modal_7" className="btn w-full bg-orange-2 uppercase text-white">
               Submit
-            </label> : <Link to="/login" state={location.pathname} htmlFor="my_modal_7" className="btn w-full bg-blue-700 text-white">
+            </label> : <Link to="/login" state={location.pathname} htmlFor="my_modal_7" className="btn w-full bg-orange-2 text-white">
               Submit
             </Link> 
             }
@@ -372,7 +374,7 @@ const PackageDetails = () => {
                 <div className="modal-box text-center">
                   <button
                     type="submit"
-                    className=" p-4 bg-blue-700 text-white"
+                    className=" p-4 bg-orange-2 text-white"
                   >
                     Confirm Your booking
                   </button>
